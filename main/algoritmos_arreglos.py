@@ -1,4 +1,4 @@
-import sys
+import sys, time
 from pathlib import Path
 
 # Añade la ruta del proyecto al PATH de Python
@@ -7,7 +7,8 @@ sys.path.append(str(Path(__file__).parent.parent))  # ← Sube dos niveles (a "t
 from models.Politicos import Politico
 import random
 
-def SortInsertPoliticos(politicos_base: list[Politico]) -> list[Politico]:
+def SortInsertPoliticos(politicos_base: list[Politico]):
+    inicial= time.time()
     contador_intercambios = 0
     contador_comparaciones = 0
     
@@ -22,7 +23,11 @@ def SortInsertPoliticos(politicos_base: list[Politico]) -> list[Politico]:
             contador_intercambios += 1  # Cada desplazamiento cuenta como intercambio
             j -= 1  # ¡Decrementar j para evitar bucle infinito!
         politicos_copia[j + 1] = politico
-    return politicos_copia
+    final = time.time()
+    retorno = final - inicial
+    
+    PrintList(politicos_copia)
+    print(f"demoro {retorno:.6f} segundos")
 
 def SortBubblePoliticos(politicos_base : list[Politico]) -> list[Politico]:
     contador_intercambios = 0
