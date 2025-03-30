@@ -29,7 +29,8 @@ def SortInsertPoliticos(politicos_base: list[Politico]):
     PrintList(politicos_copia)
     print(f"demoro {retorno:.6f} segundos")
 
-def SortBubblePoliticos(politicos_base : list[Politico]) -> list[Politico]:
+def SortBubblePoliticos(politicos_base : list[Politico]):
+    inicial= time.time()
     contador_intercambios = 0
     contador_comparaciones = 0
     
@@ -43,13 +44,18 @@ def SortBubblePoliticos(politicos_base : list[Politico]) -> list[Politico]:
         permutation = False
         iteración = iteración + 1
         for actual in range(0, len(politicos_copia) - iteración):
+            contador_comparaciones += 1
             if politicos_copia[actual].valor_robo > politicos_copia[actual + 1].valor_robo:
                 permutation = True
                 # Intercambiamos los dos elementos
+                contador_intercambios += 1
                 politicos_copia[actual], politicos_copia[actual + 1] = \
                 politicos_copia[actual + 1],politicos_copia[actual]
-                
-    return politicos_copia
+    final = time.time()            
+    retorno = final - inicial
+    
+    PrintList(politicos_copia)
+    print(f"demoro {retorno:.6f} segundos")
 
 def CreateList(n:int) -> list:
     lista = []
