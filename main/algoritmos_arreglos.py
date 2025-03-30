@@ -24,6 +24,28 @@ def SortInsertPoliticos(politicos_base: list[Politico]) -> list[Politico]:
         politicos_copia[j + 1] = politico
     return politicos_copia
 
+def SortBubblePoliticos(politicos_base : list[Politico]) -> list[Politico]:
+    contador_intercambios = 0
+    contador_comparaciones = 0
+    
+    politicos_copia = politicos_base.copy()
+    
+    n = len(politicos_copia)
+    
+    permutation = True
+    iteración = 0
+    while permutation == True:
+        permutation = False
+        iteración = iteración + 1
+        for actual in range(0, len(politicos_copia) - iteración):
+            if politicos_copia[actual].valor_robo > politicos_copia[actual + 1].valor_robo:
+                permutation = True
+                # Intercambiamos los dos elementos
+                politicos_copia[actual], politicos_copia[actual + 1] = \
+                politicos_copia[actual + 1],politicos_copia[actual]
+                
+    return politicos_copia
+
 def CreateList(n:int) -> list:
     lista = []
     for i in range(n):
