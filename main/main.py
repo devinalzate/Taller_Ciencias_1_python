@@ -1,13 +1,10 @@
-import algoritmos_arreglos
+import algoritmos_arreglos, algortimos_matriz
 
 n = int(input("ingrese una cantidad de politicos: "))
 
-list = algoritmos_arreglos.CreateList(n)
+lista = algoritmos_arreglos.CreateList(n)
 
-algoritmos_arreglos.PrintList(list)
+algoritmos_arreglos.PrintList(lista)
 
-print("\nLISTA ORDENADA CON INSERT\n")
-algoritmos_arreglos.SortInsertPoliticos(list)
-# lista_ordenada_burbuja = algoritmos_arreglos.SortBubblePoliticos(list)
-# print("\nLISTA ORDENADA CON BUBBLE\n")
-# algoritmos_arreglos.PrintList(lista_ordenada_burbuja)
+matriz = algortimos_matriz.CreateMatriz(lista)
+algortimos_matriz.imprimir_matriz_politicos(matriz)
