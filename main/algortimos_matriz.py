@@ -1,55 +1,43 @@
 import math
 from models.Politicos import Politico
 
+import math
 
-def CreateMatriz(lista: Politico) -> list[list]:
+def CreateMatriz(lista: list) -> list[list]:
     size = len(lista)
     
     if size == 0:
         return None
     
-    min_filas = 2
+    min_filas = 4
+    matriz_politicos = None
     
-    matriz_politicos = []
-    
-     # Buscamos el par de factores más equilibrado que cumpla con el mínimo de filas
+    # Buscamos el par de factores más equilibrado que cumpla con el mínimo de filas
     for i in range(max(min_filas, int(math.ceil(math.sqrt(size)))), min_filas - 1, -1):
-        
         if size % i == 0:
             rows = i
             cols = size // i
             matriz_politicos = [[None for _ in range(cols)] for _ in range(rows)]
-            # Llenar la matriz con los políticos y espacios vacíos como None
-            index = 0
-            for i in range(len(matriz_politicos)):
-                for j in range(len(matriz_politicos[i])):
-                    if index < size:
-                        matriz_politicos[i][j] = lista[index]
-                        index += 1
-                    else:
-                        matriz_politicos[i][j] = "None"  # Espacios vacíos explícitos
-
-            return matriz_politicos
-
+            break
+    
     # Si no encontramos divisores que cumplan con el mínimo de filas
     if matriz_politicos is None:
-        # Calculamos el número de columnas necesario para tener al menos 3 filas
         rows = min_filas
         cols = math.ceil(size / rows)
         matriz_politicos = [[None for _ in range(cols)] for _ in range(rows)]
-        
-        # Llenar la matriz con los políticos y espacios vacíos como None
-        index = 0
-        for i in range(len(matriz_politicos)):
-            for j in range(len(matriz_politicos[i])):
-                if index < size:
-                    matriz_politicos[i][j] = lista[index]
-                    index += 1
-                else:
-                    matriz_politicos[i][j] = None  # Espacios vacíos explícitos
-
-        return matriz_politicos
-
+    
+    
+    # Rellenar la matriz con los políticos y completar con None si es necesario
+    index = 0
+    for i in range(len(matriz_politicos)):
+        for j in range(len(matriz_politicos[i])):
+            if index < size:
+                matriz_politicos[i][j] = lista[index]
+                index += 1
+            else:
+                matriz_politicos[i][j] = None  # Rellenar con None si faltan elementos
+    
+    return matriz_politicos
     
 
 def imprimir_matriz_politicos(matriz_politicos):
