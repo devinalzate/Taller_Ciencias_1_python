@@ -28,3 +28,8 @@ class Politico:
     def edad(self, edad: int):
         self._edad = edad
     
+    def __str__(self):
+        return f"{self._id}  ||  {self._edad}  ||  {self._valor_robo}"
+    
+        
+    

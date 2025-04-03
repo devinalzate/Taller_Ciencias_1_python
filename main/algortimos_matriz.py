@@ -3,7 +3,76 @@ from models.Politicos import Politico
 
 import math
 
-def CreateMatriz(lista: list) -> list[list]:
+def SortInsertMatriz(lista) -> list[Politico]:
+    matriz_copia = lista
+    
+    for i in range (0,len(matriz_copia)):
+        if i < len(matriz_copia):
+           for j in range(0, len(matriz_copia[0])):
+                politico = matriz_copia[i][j]
+                k = j - 1
+                if politico == None:
+                    break
+                else:
+                    while k >= 0 and matriz_copia[i][k].valor_robo > politico.valor_robo:
+                        matriz_copia[i][k + 1] = matriz_copia[i][k]
+                        k -= 1  # ¡Decrementar j para evitar bucle infinito!
+                    matriz_copia[i][k + 1] = politico
+                    
+        if i < len(matriz_copia[0]):
+            for j in range(1, len(matriz_copia)):
+                politico = matriz_copia[j][i]
+                k = j - 1
+                if politico == None:
+                    break
+                else:
+                    while k >= 0 and matriz_copia[k][i].edad > politico.edad:
+                        matriz_copia[k+1][i] = matriz_copia[k][i]
+                        k -= 1  # ¡Decrementar j para evitar bucle infinito!
+                    matriz_copia[k+1][i] = politico
+                    
+    imprimir_matriz_politicos(matriz_copia)
+
+def SortBubbleMatriz(lista) -> list[Politico]:
+    matriz_copia = lista
+    
+    if not matriz_copia or not matriz_copia[0]:
+        return matriz_copia
+    
+    rows = len(matriz_copia)
+    cols = len(matriz_copia[0])
+    
+    # Ordenar cada fila
+    for i in range(rows):
+        permutation = True
+        iteration = 0
+        while permutation:
+            permutation = False
+            iteration += 1
+            for j in range(0, cols - iteration):
+                if matriz_copia[i][j] != None and matriz_copia[i][j + 1] != None:
+                    if matriz_copia[i][j].valor_robo > matriz_copia[i][j + 1].valor_robo:
+                        permutation = True
+                        matriz_copia[i][j], matriz_copia[i][j + 1] = matriz_copia[i][j + 1], matriz_copia[i][j]
+    
+    # Ordenar cada columna
+    for j in range(cols):
+        permutation = True
+        iteration = 0
+        while permutation:
+            permutation = False
+            iteration += 1
+            for i in range(0, rows - iteration):
+                if matriz_copia[i][j] != None and matriz_copia[i + 1][j] != None:
+                    if matriz_copia[i][j].edad > matriz_copia[i + 1][j].edad:
+                        permutation = True
+                        matriz_copia[i][j], matriz_copia[i + 1][j] = matriz_copia[i + 1][j], matriz_copia[i][j]
+    imprimir_matriz_politicos(matriz_copia)
+    return matriz_copia
+
+        
+
+def CreateMatriz(lista: list) -> list[Politico]:
     size = len(lista)
     
     if size == 0:

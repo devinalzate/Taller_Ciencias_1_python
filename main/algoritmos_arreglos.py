@@ -60,7 +60,7 @@ def SortBubblePoliticos(politicos_base : list[Politico]):
 def CreateList(n:int) -> list:
     lista = []
     for i in range(n):
-        valor_robo = random.randint(100, 1000000)
+        valor_robo = random.randint(99, 1000001)
         edad = random.randint(20, 60)
         politico = Politico(i, valor_robo, edad)
         
