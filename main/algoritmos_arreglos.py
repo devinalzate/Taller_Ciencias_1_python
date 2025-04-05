@@ -57,6 +57,48 @@ def SortBubblePoliticos(politicos_base : list[Politico]):
     PrintList(politicos_copia)
     print(f"demoro {retorno:.6f} segundos")
 
+def SortQuickPolitics(politics_base: list[Politico]):
+    inicial = time.time()
+    contador_intercambios = 0
+    contador_comparaciones = 0
+    
+    politics_copia = politics_base.copy()
+    
+    def quick_sort(politics: list[Politico], low: int, high: int):
+        nonlocal contador_intercambios, contador_comparaciones
+        
+        if low < high:            # Partición del array
+            pivot_index = partition(politics, low, high)            # Ordenar recursivamente los subarrays
+            quick_sort(politics, low, pivot_index - 1)
+            quick_sort(politics, pivot_index + 1, high)
+    
+    def partition(politics: list[Politico], low: int, high: int) -> int:
+        nonlocal contador_intercambios, contador_comparaciones
+        
+        pivot = politics[high].valor_robo
+        i = low - 1
+        
+        for j in range(low, high):
+            contador_comparaciones += 1
+            if politics[j].valor_robo <= pivot:
+                i += 1
+                politics[i], politics[j] = politics[j], politics[i]                # Intercambiar elementos
+                contador_intercambios += 1
+        
+        politics[i+1], politics[high] = politics[high], politics[i+1]        # Intercambiar el pivote con el elemento en i+1
+        contador_intercambios += 1
+        return i + 1
+    
+    quick_sort(politics_copia, 0, len(politics_copia) - 1)    # Llamar a la función principal de QuickSort
+    
+    final = time.time()
+    retorno = final - inicial
+    
+    PrintList(politics_copia)
+    print(f"demoro: {retorno:.6f} segundos")
+    print(f"Comparaciones realizadas: {contador_comparaciones}")
+    print(f"Intercambios realizados: {contador_intercambios}")
+
 def CreateList(n:int) -> list:
     lista = []
     for i in range(n):
